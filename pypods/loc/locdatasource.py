@@ -1,6 +1,6 @@
 import re
 
-from datasource import DataSource
+from pypods.datasource import DataSource
 from pypods.loc.locchannelhandler import LocChannelHandler
 
 

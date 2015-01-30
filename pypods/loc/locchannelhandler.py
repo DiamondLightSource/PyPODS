@@ -1,4 +1,4 @@
-from channelhandler import ChannelHandler
+from pypods.channelhandler import ChannelHandler
 
 
 class LocChannelHandler(ChannelHandler):
