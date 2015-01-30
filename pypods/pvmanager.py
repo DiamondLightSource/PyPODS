@@ -8,13 +8,13 @@ class PVManager(object):
 
     def __init__(self, datasources = "sim,loc"):
         """Initialise the PVManager object, searching for datasources
-        
+
         :param datasources: 
         """
         self._data_sources = OrderedDict()
         for name in datasources.split(","):
-            Source = import_module("{0}.{0}datasource".format(name))
-            self._data_sources[name] = Source()
+            Source = import_module("pypods.{0}.{0}datasource".format(name))
+            self._data_sources[name] = Source
 
     def _get_handler(self, channel):
         """Get the handler for a given channel name by using its
@@ -31,7 +31,7 @@ class PVManager(object):
         else:
             # assume first datasource is default
             source = self._data_sources[self._data_sources.keys()[0]]
-        return source.createChannel(channel)
+        return source.create_channel(channel)
 
     def read(self, channel, pv_changed_func, max_rate = 0):
         """Creates a readable PV object for the given channel
