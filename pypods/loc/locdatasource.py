@@ -1,11 +1,12 @@
-from datasource import DataSource
-from localchannelhandler import LocalChannelHandler
 import re
 
+from datasource import DataSource
+from pypods.loc.locchannelhandler import LocChannelHandler
 
-class LocalDataSource(DataSource):
+
+class LocDataSource(DataSource):
     def __init__(self):
-        super(LocalDataSource, self).__init__()
+        super(LocDataSource, self).__init__()
         self.channels = dict()
 
     def create_channel(self, channel_name):
@@ -15,7 +16,7 @@ class LocalDataSource(DataSource):
         if n in self.channels.keys():
             self.channels[n].set_initial_value(v)
         else:
-            newchan = LocalChannelHandler(n)
+            newchan = LocChannelHandler(n)
             newchan.set_initial_value(v)
             self.channels[n] = newchan
         return self.channels[n]
@@ -29,5 +30,5 @@ class LocalDataSource(DataSource):
             raise Exception("Name format is invalid")
 
 if __name__ == "__main__":
-    l = LocalDataSource()
+    l = LocDataSource()
     l.create_channel("test(5)")

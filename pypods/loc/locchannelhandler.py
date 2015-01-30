@@ -1,10 +1,10 @@
 from channelhandler import ChannelHandler
 
 
-class LocalChannelHandler(ChannelHandler):
+class LocChannelHandler(ChannelHandler):
 
     def __init__(self, name):
-        super(LocalChannelHandler, self).__init__()
+        super(LocChannelHandler, self).__init__()
         self.name = name
         self.value = None
         self.read_callbacks = list()
