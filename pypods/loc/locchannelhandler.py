@@ -45,3 +45,6 @@ class LocChannelHandler(ChannelHandler):
     def set_initial_value(self, value):
         self.value = value
 
+    def get_name(self):
+        return self.name
+

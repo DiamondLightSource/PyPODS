@@ -30,9 +30,9 @@ class PV(object):
         self._last_read_time = 0
 
         if readable:
-            channel_handler.add_read_listener(self._channel_handler_read_listener)
+            channel_handler.add_read_callback(self._channel_handler_read_listener)
         if writable:
-            channel_handler.add_write_listener(self._channel_handler_write_listener)
+            channel_handler.add_write_callback(self._channel_handler_write_listener)
 
     def get_name(self):
         return self._channel_handler.get_name()
@@ -46,7 +46,6 @@ class PV(object):
 
     def set_write_listener(self, listener):
         self._write_listener = listener
-        return self._channel_handler.add_write_callback(listener)
 
     def _channel_handler_read_listener(self, name, value, **kwargs):
         """
