@@ -3,10 +3,9 @@ import re
 from importlib import import_module
 from collections import OrderedDict
 
+
 class PVManager(object):
-    # Dict of prefix -> DataSource channels
-    _data_sources = {}
-    
+
     def __init__(self, datasources = "sim,loc"):
         """Initialise the PVManager object, searching for datasources
         
@@ -42,13 +41,13 @@ class PVManager(object):
             when the value changes
         :param max_rate: max number of updates per second"""
         handler = self._get_handler(channel)
-        pv = PV(channel, readable = True, writeable = False, 
-            max_rate = max_rate)
+        pv = PV(channel, readable = True, writable = False,
+            max_rate=max_rate)
         pv.set_read_listener(pv_changed_func)
         handler.add_read_callback(pv.read_callback)
         return pv
         
-    def write(self, channel, pv_written_func, max_rate = 0):
+    def write(self, channel, pv_written_func, max_rate=None):
         """Creates a writeable PV object for the given channel
         
         :param channel: channel like loc://variable(8)
@@ -56,23 +55,20 @@ class PVManager(object):
             when a write completes
         :param max_rate: max number of updates per second"""
         handler = self._get_handler(channel)
-        pv = PV(channel, readable = False, writeable = True, 
-            max_rate = max_rate)
+        pv = PV(channel, readable=False, writable=True, max_rate=max_rate)
         pv.set_write_listener(pv_written_func)
         handler.add_write_callback(pv.write_callback)        
         return pv
 
-    def read_and_write(self, channel, pv_changed_func, pv_written_func,
-            max_rate = 0):  
-        """Creates a readable and writeable PV object for the given channel
+    def read_and_write(self, channel, pv_changed_func, pv_written_func, max_rate=None):
+        """Creates a readable and writable PV object for the given channel
         
         :param channel: channel like loc://variable(8)
         :param pv_written_func: func(name, value) that will be called
             when a write completes
         :param max_rate: max number of updates per second"""
         handler = self._get_handler(channel)
-        pv = PV(channel, readable = False, writeable = True, 
-            max_rate = max_rate)
+        pv = PV(channel, readable=False, writable=True, max_rate=max_rate)
         pv.set_read_listener(pv_changed_func)            
         pv.set_write_listener(pv_written_func)
         handler.add_read_callback(pv.read_callback)        
