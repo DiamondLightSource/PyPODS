@@ -1,6 +1,3 @@
-import sys
-sys.path.append("c:\\Users\\mjc23\\Documents\\GitHub\\PyPODS")
-
 import unittest
 from pypods.loc.locchannelhandler import LocChannelHandler
 
