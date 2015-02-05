@@ -30,8 +30,12 @@ class PVManager(object):
             source = self._data_sources[sourcename]
         else:
             # assume first datasource is default
-            source = self._data_sources[self._data_sources.keys()[0]]
-        return source.create_channel(channel)
+            sourcename = self._data_sources.keys()[0]
+            source = self._data_sources[sourcename]
+
+        class_ = getattr(source, sourcename.title() + 'DataSource')
+        object = class_()
+        return object.create_channel(channel)
 
     def read(self, channel, pv_changed_func, max_rate = 0):
         """Creates a readable PV object for the given channel
