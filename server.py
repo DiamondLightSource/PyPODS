@@ -10,4 +10,5 @@ if __name__ == "__main__":
                          handler_class=WebSocketWSGIRequestHandler,
                          app=WebSocketWSGIApplication(handler_cls=PodsWebSocket))
     server.initialize_websockets_manager()
+    print(server.socket)
     server.serve_forever()
