@@ -45,10 +45,9 @@ class PVManager(object):
             when the value changes
         :param max_rate: max number of updates per second"""
         handler = self._get_handler(channel)
-        pv = PV(channel, readable = True, writable = False,
+        pv = PV(handler, readable = True, writable = False,
             max_rate=max_rate)
         pv.set_read_listener(pv_changed_func)
-        handler.add_read_callback(pv.read_callback)
         return pv
         
     def write(self, channel, pv_written_func, max_rate=None):
@@ -59,9 +58,8 @@ class PVManager(object):
             when a write completes
         :param max_rate: max number of updates per second"""
         handler = self._get_handler(channel)
-        pv = PV(channel, readable=False, writable=True, max_rate=max_rate)
+        pv = PV(handler, readable=False, writable=True, max_rate=max_rate)
         pv.set_write_listener(pv_written_func)
-        handler.add_write_callback(pv.write_callback)        
         return pv
 
     def read_and_write(self, channel, pv_changed_func, pv_written_func, max_rate=None):
@@ -72,9 +70,7 @@ class PVManager(object):
             when a write completes
         :param max_rate: max number of updates per second"""
         handler = self._get_handler(channel)
-        pv = PV(channel, readable=False, writable=True, max_rate=max_rate)
-        pv.set_read_listener(pv_changed_func)            
+        pv = PV(handler, readable=True, writable=True, max_rate=max_rate)
+        pv.set_read_listener(pv_changed_func)
         pv.set_write_listener(pv_written_func)
-        handler.add_read_callback(pv.read_callback)        
-        handler.add_write_callback(pv.write_callback) 
-        return pv        
+        return pv
