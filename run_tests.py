@@ -1,7 +1,7 @@
 import unittest
 import xmlrunner
 
-from tests.test_locchannelhandler import LocChannelHandlerTest
+from tests.test_locchannel import LocChannelHandlerTest
 
 loc_channel_handler_tests = unittest.TestLoader().loadTestsFromTestCase(LocChannelHandlerTest)
 
